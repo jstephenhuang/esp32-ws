@@ -86,13 +86,27 @@ Build from the selected application directory:
 
 ```bash
 cd /ws/apps/my_app
-idf.py set-target esp32
+idf.py set-target esp32*
 idf.py build
 idf.py -p {port} flash monitor
 ```
 
 Replace `esp32` with the target used by your board, such as `esp32c3` or `esp32s3`.
 Specify the port when flashing.
+
+For an interactive host-side workflow, this repository also includes
+uv-managed flashing and monitoring commands. They discover application builds
+and attached serial devices:
+
+```bash
+uv run --project scripts esp-flash
+uv run --project scripts esp-monitor
+```
+
+The flasher uses the selected ESP-IDF build's generated `flasher_args.json`, so
+the bootloader, partition table, app binary, offsets, target chip, and flash
+settings stay aligned with the build. See [`scripts/README.md`](scripts/README.md)
+for CLI options and non-interactive examples.
 
 
 Typical serial devices include `/dev/ttyUSB0` and `/dev/ttyACM0`. If the board is not visible, check the host device and permissions before reopening the container:

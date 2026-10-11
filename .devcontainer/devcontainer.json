@@ -6,6 +6,8 @@
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/ws,type=bind",
   "workspaceFolder": "/ws",
+  "remoteUser": "ubuntu",
+  "updateRemoteUserUID": true,
   "shutdownAction": "stopContainer",
   "runArgs": [
     "--privileged"

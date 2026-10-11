@@ -6,5 +6,6 @@ ENV LC_ALL=C.UTF-8
 
 WORKDIR /ws
 
-# source the esp idf
-RUN echo 'source "$IDF_PATH/export.sh"' >> /root/.bashrc
+# Source ESP-IDF for the non-root user used by the Dev Container.
+RUN echo 'source "$IDF_PATH/export.sh"' >> /home/ubuntu/.bashrc \
+    && chown ubuntu:ubuntu /home/ubuntu/.bashrc

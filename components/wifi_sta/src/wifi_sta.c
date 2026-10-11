@@ -79,7 +79,7 @@ static void on_wifi_event(void *args,
 
             #if CONFIG_WIFI_STA_CONNECT_IPV6 || CONFIG_WIFI_STA_CONNECT_UNSPECIFIED
             
-            esp_ret = esp_netif_create_ip6_linklocal(s_wifi_driver);
+            esp_ret = esp_netif_create_ip6_linklocal(s_wifi_netif);
             if (esp_ret != ESP_OK) {
                 ESP_LOGE(TAG, "Failed to create IPv6 link-local address");
             }
@@ -96,7 +96,7 @@ static void on_wifi_event(void *args,
 
             #if CONFIG_WIFI_STA_AUTO_RECONNECT
 
-            ESP_LOGI(TAG, "Attempting to reconnect...")
+            ESP_LOGI(TAG, "Attempting to reconnect...");
             wifi_sta_reconnect();
 
             #endif
@@ -453,7 +453,7 @@ esp_err_t wifi_sta_stop(void)
 
     // (s8.1) Disconnect from WiFi
     esp_ret = esp_wifi_disconnect();
-    if (esp_ret == ESP_ERR_WIFI_NOT_INIT || ESP_ERR_WIFI_NOT_STARTED) {
+    if (esp_ret == ESP_ERR_WIFI_NOT_INIT || esp_ret == ESP_ERR_WIFI_NOT_STARTED) {
         ESP_LOGI(TAG, "WiFi already disconnected");
     } else if (esp_ret != ESP_OK) {
         ESP_LOGE(TAG, "Error (%d): Failed to disconnect from WiFi", esp_ret);
